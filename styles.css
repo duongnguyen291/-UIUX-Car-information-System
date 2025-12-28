@@ -156,12 +156,19 @@ body {
     font-size: 0.9rem;
 }
 
-.outside-temp {
+.temp-display {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
     color: var(--text-secondary);
     font-size: 0.9rem;
+    padding-right: var(--spacing-lg);
+    border-right: 1px solid var(--border-color);
+}
+
+.temp-display:last-of-type {
+    border-right: none;
+    padding-right: 0;
 }
 
 .temp-value {
@@ -208,6 +215,625 @@ body {
     50% {
         opacity: 0.6;
     }
+}
+
+/* =========================================
+   MEDIA SCREEN LAYOUT
+   ========================================= */
+.media-screen-layout {
+    display: grid;
+    grid-template-columns: 70px 1fr 280px;
+    height: 100%;
+    gap: 0;
+    overflow: hidden;
+}
+
+/* Audio Sources Sidebar */
+.media-sources-sidebar {
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md) 0;
+    gap: var(--spacing-xs);
+}
+
+.source-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.65rem;
+}
+
+.source-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.source-btn.active {
+    color: var(--accent-cyan);
+    background: rgba(0, 212, 255, 0.1);
+    border-left: 3px solid var(--accent-cyan);
+}
+
+.source-btn.spotify.active {
+    color: #1DB954;
+    border-left-color: #1DB954;
+    background: rgba(29, 185, 84, 0.1);
+}
+
+.source-btn.phone-src.active {
+    color: #34C759;
+    border-left-color: #34C759;
+}
+
+.source-btn.messages-src.active {
+    color: #5AC8FA;
+    border-left-color: #5AC8FA;
+}
+
+.source-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: var(--spacing-sm) var(--spacing-sm);
+}
+
+/* Prominent CarPlay Button */
+.carplay-quick-btn {
+    margin-top: auto !important;
+    background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: var(--radius-md) !important;
+    margin: var(--spacing-sm) !important;
+    padding: var(--spacing-md) !important;
+    color: #fff !important;
+}
+
+.carplay-quick-btn:hover {
+    background: linear-gradient(135deg, #2c2c2e 0%, #3c3c3e 100%) !important;
+    border-color: var(--accent-cyan) !important;
+    transform: scale(1.05);
+}
+
+.carplay-quick-btn svg {
+    color: #fff;
+}
+
+/* Now Playing Panel */
+.media-main-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+    overflow: hidden;
+    width: 100%;
+}
+
+.now-playing-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    text-align: center;
+    max-width: 350px;
+    width: 100%;
+}
+
+.album-art-large {
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+}
+
+.album-placeholder {
+    font-size: 3rem;
+}
+
+.track-details {
+    margin-bottom: var(--spacing-sm);
+}
+
+.track-title-lg {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.track-artist-lg {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.track-album {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+}
+
+.time-current,
+.time-total {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    min-width: 40px;
+}
+
+.progress-bar-media {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill-media {
+    height: 100%;
+    background: var(--accent-cyan);
+    border-radius: 3px;
+}
+
+.playback-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.ctrl-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: var(--spacing-sm);
+    border-radius: 50%;
+}
+
+.ctrl-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ctrl-btn.play-pause {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    padding: 12px;
+}
+
+.ctrl-btn.play-pause:hover {
+    transform: scale(1.1);
+}
+
+/* Right Panel Tabs */
+.media-right-panel {
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.panel-tab {
+    flex: 1;
+    padding: var(--spacing-md);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.panel-tab:hover {
+    color: var(--text-primary);
+}
+
+.panel-tab.active {
+    color: var(--accent-cyan);
+    border-bottom: 2px solid var(--accent-cyan);
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.tab-content {
+    display: none;
+    flex: 1;
+    padding: var(--spacing-md);
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Queue Tab */
+.queue-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.queue-item {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.queue-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.queue-item.active {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--accent-cyan);
+}
+
+.q-num {
+    color: var(--text-muted);
+    width: 20px;
+}
+
+.q-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Sound Tab */
+.sound-control {
+    margin-bottom: var(--spacing-lg);
+}
+
+.sound-control label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.sound-slider {
+    width: 100%;
+    accent-color: var(--accent-cyan);
+}
+
+.eq-presets {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-md);
+}
+
+.eq-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.eq-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.eq-btn.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+/* CarPlay Center Panel */
+.media-right-panel.carplay-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-color);
+    padding: var(--spacing-lg);
+}
+
+.carplay-connect-banner {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+}
+
+.device-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+}
+
+.status-dot.connected {
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.carplay-launch-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-xl);
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.carplay-launch-btn:hover {
+    transform: scale(1.05);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+}
+
+.carplay-icon-large {
+    color: #fff;
+}
+
+.carplay-launch-btn h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.carplay-launch-btn p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* =========================================
+   CARPLAY iOS-STYLE OVERLAY
+   ========================================= */
+#projection-overlay {
+    position: absolute;
+    inset: 0;
+    /* Covers entire infotainment-screen */
+    background: #000;
+    z-index: 1000;
+    display: flex;
+    background-image: url('public/ios-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#projection-overlay.hidden {
+    display: none;
+}
+
+/* Left Sidebar */
+.carplay-sidebar {
+    width: 80px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    gap: 20px;
+}
+
+.sidebar-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sidebar-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.sidebar-icon.active {
+    background: #007AFF;
+    color: white;
+}
+
+.sidebar-icon.home-icon {
+    background: #EB0A1E;
+    color: white;
+    margin-top: auto;
+}
+
+.sidebar-divider {
+    flex: 1;
+}
+
+/* Main CarPlay Area */
+.carplay-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 60px;
+}
+
+.carplay-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+}
+
+.cp-time {
+    font-size: 1rem;
+}
+
+.cp-signal {
+    display: flex;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.signal-bars {
+    letter-spacing: -2px;
+}
+
+/* App Grid */
+.carplay-app-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 30px;
+    padding: 40px 20px;
+    align-items: center;
+    justify-items: center;
+}
+
+.cp-app-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    gap: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cp-app-icon:hover {
+    transform: scale(1.08);
+}
+
+/* App Icon Colors (iOS Style) */
+.cp-app-icon.phone {
+    background: linear-gradient(135deg, #5AC8FA, #34C759);
+}
+
+.cp-app-icon.music {
+    background: linear-gradient(135deg, #FF2D55, #FF6B9D);
+}
+
+.cp-app-icon.maps {
+    background: linear-gradient(135deg, #34C759, #30D158);
+}
+
+.cp-app-icon.messages {
+    background: linear-gradient(135deg, #32D74B, #30D158);
+}
+
+.cp-app-icon.now-playing-app {
+    background: linear-gradient(135deg, #FF9500, #FF6B00);
+}
+
+.cp-app-icon.podcasts {
+    background: linear-gradient(135deg, #8944AB, #5856D6);
+}
+
+.cp-app-icon.audiobooks {
+    background: linear-gradient(135deg, #FF9500, #FF6B00);
+}
+
+.cp-app-icon.news {
+    background: linear-gradient(135deg, #FF3B30, #FF453A);
+}
+
+.cp-app-icon.calendar {
+    background: white;
+    color: #000;
+}
+
+.cp-app-icon.calendar .cal-day {
+    font-size: 0.6rem;
+    color: #FF3B30;
+    font-weight: 600;
+}
+
+.cp-app-icon.calendar .cal-num {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #000;
+    line-height: 1;
+}
+
+.cp-app-icon.settings {
+    background: linear-gradient(135deg, #8E8E93, #636366);
+}
+
+/* Bottom Dots */
+.carplay-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.dot.active {
+    background: white;
 }
 
 .alert-text {
@@ -578,9 +1204,24 @@ body {
     position: relative;
 }
 
-.map-svg {
-    width: 100%;
-    height: 100%;
+.direction-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+}
+
+.direction-svg {
+    width: 32px;
+    height: 32px;
+    color: var(--accent-cyan);
+}
+
+.direction-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* Climate Card */
@@ -743,23 +1384,16 @@ body {
 /* Left Column Sizing */
 .monitor-col-left .tire-card {
     flex: 60;
-    /* Higher height */
 }
 
-.monitor-col-left .temp-card {
+.monitor-col-left .fuel-card {
     flex: 40;
-    /* Lower height */
 }
 
 /* Right Column Sizing */
-.monitor-col-right .fuel-card {
-    flex: 40;
-    /* Lower height */
-}
-
 .monitor-col-right .health-card {
-    flex: 60;
-    /* Higher height */
+    flex: 1;
+    /* Full height */
     overflow-y: auto;
 }
 
@@ -785,6 +1419,9 @@ body {
 .tire-diagram {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex: 1;
+    min-height: 0;
 }
 
 .tire-visual {
@@ -792,8 +1429,9 @@ body {
 }
 
 .car-top-svg {
-    width: 150px;
+    width: 120px;
     height: auto;
+    max-height: 100%;
 }
 
 .tire-readings {
@@ -984,21 +1622,18 @@ body {
 }
 
 /* Left Column: Interactive Controls */
+/* Controls Panel - Full Width */
 .controls-column.left-panel {
-    flex: 65;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
     overflow-y: auto;
     padding-right: var(--spacing-xs);
+    width: 100%;
 }
 
-/* Right Column: Visual Status */
-.controls-column.right-panel {
-    flex: 35;
-    display: flex;
-    flex-direction: column;
-}
+
 
 /* Control Groups Common Style */
 .control-group {
@@ -1110,8 +1745,158 @@ body {
     gap: var(--spacing-md);
 }
 
-.lights-grid,
-.doors-grid,
+/* Door Visual Controller */
+.doors-group {
+    grid-column: span 1;
+    /* Was span 2 */
+}
+
+.door-visual-controller {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    /* Reduced for split layout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-sm);
+}
+
+.control-car-svg {
+    height: 120px;
+    /* Reduced size */
+    width: auto;
+    opacity: 0.8;
+}
+
+.door-btn {
+    position: absolute;
+    width: 16px;
+    /* Larger buttons */
+    height: 60px;
+    background: transparent;
+    border: 2px solid var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.door-btn:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+.door-btn.open {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+    transform: translateX(-5px);
+    /* Visual 'open' effect */
+}
+
+/* Positioning - Adjusted for smaller 120px height */
+.door-btn.fl {
+    top: 30px;
+    left: calc(50% - 32px);
+    width: 10px;
+    height: 30px;
+}
+
+.door-btn.fr {
+    top: 30px;
+    right: calc(50% - 32px);
+    width: 10px;
+    height: 30px;
+}
+
+.door-btn.rl {
+    top: 65px;
+    left: calc(50% - 32px);
+    width: 10px;
+    height: 30px;
+}
+
+.door-btn.rr {
+    top: 65px;
+    right: calc(50% - 32px);
+    width: 10px;
+    height: 30px;
+}
+
+.door-btn.trunk {
+    width: 30px;
+    height: 8px;
+    bottom: 15px;
+}
+
+/* External Buttons - Tighter positioning */
+.door-action-btn {
+    width: 32px;
+    height: 32px;
+}
+
+.door-action-btn:hover {
+    transform: scale(1.1);
+}
+
+.door-action-btn::after {
+    width: 8px;
+    height: 8px;
+}
+
+.door-action-btn.fl-ext {
+    top: 10px;
+    left: 10px;
+}
+
+.door-action-btn.fr-ext {
+    top: 10px;
+    right: 10px;
+}
+
+.door-action-btn.rl-ext {
+    bottom: 10px;
+    left: 10px;
+}
+
+.door-action-btn.rr-ext {
+    bottom: 10px;
+    right: 10px;
+}
+
+.central-lock {
+    width: 32px;
+    height: 32px;
+}
+
+
+
+.central-lock {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.central-lock.locked {
+    color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
 .mirrors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
@@ -1271,33 +2056,364 @@ body {
     border-color: white;
 }
 
-.dot-btn.red {
-    background: #ff4757;
+/* Airflow Controls */
+.airflow-control-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
 }
 
-.dot-btn.blue {
-    background: #00d4ff;
+.airflow-control-row .fan-slider-compact {
+    flex: 2;
 }
 
-.dot-btn.green {
-    background: #00ff88;
+.airflow-toggles {
+    flex: 1;
+    display: flex;
+    gap: var(--spacing-sm);
 }
 
-.dot-btn.purple {
-    background: #a855f7;
+/* External Door Action Buttons */
+.door-action-btn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Headlight Beams Animation */
-@keyframes beam-flicker {
+.door-action-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: 0.5;
+}
 
-    0%,
+.door-action-btn:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.door-action-btn:active {
+    transform: scale(0.95);
+}
+
+.door-action-btn.active {
+    /* Simulated Active State */
+    border-color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    animation: pulse-glow 2s infinite;
+}
+
+/* External Button Positions */
+.door-action-btn.fl-ext {
+    top: 20px;
+    left: 20px;
+}
+
+.door-action-btn.fr-ext {
+    top: 20px;
+    right: 20px;
+}
+
+.door-action-btn.rl-ext {
+    bottom: 20px;
+    left: 20px;
+}
+
+.door-action-btn.rr-ext {
+    bottom: 20px;
+    right: 20px;
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    }
+
     100% {
-        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
     }
+}
 
-    50% {
-        opacity: 0.4;
-    }
+/* Simplified Lighting */
+.lighting-simple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: var(--spacing-md);
+}
+
+.light-main-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--text-muted);
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.light-main-btn.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a202c;
+    border-color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.light-colors-simple {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.color-option.active {
+    transform: scale(1.2);
+    border-color: var(--text-primary);
+}
+
+.color-option.white {
+    background: #ffffff;
+}
+
+.color-option.warm {
+    background: #ffe4b5;
+}
+
+.color-option.yellow {
+    background: #ffd700;
+}
+
+/* 4-Seat Massage Grid */
+.massage-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.massage-seat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.03);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+}
+
+.massage-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.massage-toggle.active {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+/* Enhanced Climate Control */
+.airflow-toggles-expanded {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex: 2;
+}
+
+.airflow-toggles-expanded .toggle-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.air-circulation-row {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.air-circulation-row .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+.air-circulation-row .icon {
+    font-size: 1.2rem;
+}
+
+/* Nav Exit Button */
+.nav-circle-btn.exit-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.nav-circle-btn.exit-btn:hover {
+    background: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Media & Camera Screen */
+.media-layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+}
+
+.media-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-lg);
+}
+
+.camera-controls h3 {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.camera-buttons {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.cam-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 150px;
+}
+
+.cam-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.cam-btn:active {
+    transform: scale(0.98);
+}
+
+.cam-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--accent-cyan);
+}
+
+/* Camera Feed Overlay */
+.camera-feed-container {
+    flex: 1;
+    background: #000;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.camera-feed-container.hidden {
+    display: none;
+}
+
+.camera-feed-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    color: var(--text-muted);
+}
+
+.loader-feed {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.close-feed-btn {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-feed-btn:hover {
+    background: #ef4444;
+    border-color: #ef4444;
 }
 
 .headlight-beam {
@@ -3456,4 +4572,899 @@ body {
 
 .nav-item.active {
     animation: glow 2s ease-in-out infinite;
+}
+
+/* =========================================
+   NEW UI ENHANCEMENTS
+   ========================================= */
+
+/* Music Card (Home Screen) */
+.music-card .music-icon {
+    color: var(--accent-cyan);
+}
+
+.music-card .track-name {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.music-card .artist-name {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Seat Icons for Massage */
+.seat-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.massage-seat-item:has(.massage-toggle.active) .seat-icon {
+    color: var(--accent-cyan);
+}
+
+.seat-icon .indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: transparent;
+    margin-top: 4px;
+}
+
+.massage-seat-item:has(.massage-toggle.active) .seat-icon .indicator {
+    background: var(--accent-cyan);
+    box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.massage-toggle {
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.massage-toggle.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+/* Source Content Panels */
+.source-panel {
+    display: none;
+    padding: var(--spacing-md);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.source-panel.active {
+    display: block;
+    width: 100%;
+}
+
+.source-panel h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.source-panel h4 {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Radio Channel List */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.channel-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.channel-item.active {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--accent-cyan);
+}
+
+.channel-item .freq {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    min-width: 50px;
+}
+
+.channel-item .name {
+    flex: 1;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+.channel-item .genre {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+/* Bluetooth Layout */
+.bt-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.bt-device {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.bt-device.connected {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.bt-device svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.bt-device.connected svg {
+    color: var(--accent-cyan);
+}
+
+.bt-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.bt-name {
+    font-weight: 500;
+}
+
+.bt-type {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.bt-status.connected {
+    color: var(--accent-green);
+    font-size: 0.75rem;
+}
+
+.bt-pair-btn {
+    padding: 4px 12px;
+    background: var(--accent-cyan);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--bg-primary);
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+/* Spotify Split Layout */
+.spotify-split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--spacing-md);
+    height: 100%;
+}
+
+.spotify-player-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+    border-radius: var(--radius-md);
+}
+
+.spotify-album-large {
+    width: 80px;
+    height: 80px;
+    background: #000;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spotify-player-side h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.spotify-artist {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spotify-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.sp-ctrl {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.sp-ctrl.play {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    color: #000;
+}
+
+.spotify-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.sp-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.sp-fill {
+    height: 100%;
+    background: #1DB954;
+    border-radius: 2px;
+}
+
+.spotify-playlist-side {
+    overflow-y: auto;
+}
+
+.sp-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sp-track {
+    display: grid;
+    grid-template-columns: 20px 1fr 80px;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.sp-track:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sp-track.active {
+    background: rgba(29, 185, 84, 0.15);
+}
+
+.sp-track span:first-child {
+    color: var(--text-muted);
+}
+
+.sp-track span:last-child {
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* Phone Split Layout */
+.phone-split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    height: 100%;
+}
+
+.phone-calls-section,
+.phone-messages-section {
+    overflow-y: auto;
+}
+
+.call-row {
+    display: grid;
+    grid-template-columns: 20px 1fr 50px 60px;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.call-row .duration {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.call-row .time {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-align: right;
+}
+
+.msg-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.msg-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.msg-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.msg-sender {
+    display: block;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.msg-preview {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.msg-time {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+/* Seat Numbers */
+.seat-num {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-top: 2px;
+}
+
+/* 3-Zone Lighting Controls v2 */
+.lighting-zones-v2 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.light-zone-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.zone-toggle {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    min-width: 42px;
+}
+
+.zone-toggle.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+.light-zone-row .zone-label {
+    min-width: 45px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.light-zone-row .light-slider {
+    flex: 1;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.light-zone-row .light-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.light-zone-row .light-value {
+    min-width: 30px;
+    text-align: right;
+    font-size: 0.7rem;
+    color: var(--accent-cyan);
+}
+
+/* Color Button Group */
+.light-color-buttons {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+}
+
+.color-btn {
+    flex: 1;
+    padding: 6px 8px;
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.color-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.color-btn.active[data-color="white"] {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.color-btn.active[data-color="yellow"] {
+    background: rgba(255, 193, 7, 0.2);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.color-btn.active[data-color="warm"] {
+    background: rgba(255, 224, 130, 0.2);
+    border-color: #ffe082;
+    color: #ffe082;
+}
+
+/* Door Lock Active States */
+.door-btn.locked,
+.door-action-btn.locked {
+    background: var(--accent-cyan) !important;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+    color: var(--bg-primary);
+}
+
+/* Door Button Text Styling */
+.door-btn,
+.door-action-btn {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.central-lock.locked {
+    color: var(--accent-cyan);
+}
+
+/* Lighting Header with Toggle */
+.lighting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.lighting-header h3 {
+    margin: 0;
+}
+
+.light-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.light-toggle-btn.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+}
+
+/* Light Color Options */
+.light-color-options {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.light-color-options .color-option {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.light-color-options .color-option.white {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+}
+
+.light-color-options .color-option.yellow {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+}
+
+.light-color-options .color-option.warm {
+    background: linear-gradient(135deg, #ffecb3 0%, #ffe082 100%);
+}
+
+.light-color-options .color-option.active {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* Radio Tuner */
+.radio-tuner {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-md);
+}
+
+.tuner-min,
+.tuner-max {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.tuner-slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, #00d4ff 0%, #ff6b35 100%);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.tuner-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+.tuner-freq {
+    min-width: 60px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+/* BT Scan Button */
+.bt-scan-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--accent-cyan);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--bg-primary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-top: var(--spacing-md);
+}
+
+.bt-scan-btn:hover {
+    background: #00b8e6;
+}
+
+/* Spotify Search Button */
+.spotify-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spotify-header h4 {
+    margin: 0;
+}
+
+.spotify-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.spotify-search-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Radio Channel List */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.channel-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.channel-item.active {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--accent-cyan);
+}
+
+.channel-item .freq {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    min-width: 60px;
+}
+
+.channel-item .name {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.channel-item .genre {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Bluetooth Devices */
+.bt-device {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.bt-device.connected {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.bt-device svg {
+    color: var(--text-muted);
+}
+
+.bt-device.connected svg {
+    color: var(--accent-cyan);
+}
+
+.bt-device span:first-of-type {
+    flex: 1;
+}
+
+.bt-device .status {
+    font-size: 0.75rem;
+    color: var(--accent-green);
+}
+
+/* Spotify Panel */
+.spotify-now-playing {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.album-art-small {
+    width: 48px;
+    height: 48px;
+    background: #000;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.spotify-playlist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.playlist-track {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.playlist-track:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.playlist-track.active {
+    background: rgba(29, 185, 84, 0.1);
+}
+
+.playlist-track .num {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    width: 20px;
+}
+
+.playlist-track .title {
+    flex: 1;
+}
+
+.playlist-track .artist {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Phone Panel */
+.phone-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.phone-tab {
+    flex: 1;
+    padding: var(--spacing-sm);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.phone-tab.active {
+    background: var(--accent-cyan);
+    color: var(--bg-primary);
+    border-color: var(--accent-cyan);
+}
+
+.phone-content {
+    display: none;
+}
+
+.phone-content.active {
+    display: block;
+}
+
+.call-item,
+.message-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.call-item .contact,
+.message-item .sender {
+    flex: 1;
+    font-weight: 500;
+}
+
+.call-item .time,
+.message-item .time {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.message-item .preview {
+    flex: 2;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Child Lock Button */
+.action-btn.child-lock.active {
+    color: var(--accent-yellow);
 }
