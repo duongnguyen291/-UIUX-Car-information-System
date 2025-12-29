@@ -1,0 +1,105 @@
+<div class="monitoring-layout">
+    <h2 class="screen-title">Vehicle Monitoring</h2>
+    <div class="monitoring-grid">
+        <!-- Left Column: Tire Pressure & Fuel -->
+        <div class="monitor-col monitor-col-left">
+            <!-- Tire Pressure -->
+            <div class="monitor-card tire-card">
+                <h3>Tire Pressure</h3>
+                <div class="tire-diagram">
+                    <div class="tire-visual">
+                        <div class="car-top-view">
+                            <svg viewBox="0 0 200 300" class="car-top-svg">
+                                <rect x="60" y="40" width="80" height="220" rx="30" fill="#2d3748" stroke="#4a5568" />
+                                <rect x="30" y="60" width="25" height="50" rx="8" fill="#1a202c" stroke="#00d4ff"
+                                    class="tire fl" />
+                                <rect x="145" y="60" width="25" height="50" rx="8" fill="#1a202c" stroke="#00d4ff"
+                                    class="tire fr" />
+                                <rect x="30" y="190" width="25" height="50" rx="8" fill="#1a202c" stroke="#00d4ff"
+                                    class="tire rl" />
+                                <rect x="145" y="190" width="25" height="50" rx="8" fill="#1a202c" stroke="#00d4ff"
+                                    class="tire rr" />
+                            </svg>
+                        </div>
+                        <div class="tire-readings">
+                            <span class="tire-value fl">32 PSI</span>
+                            <span class="tire-value fr">32 PSI</span>
+                            <span class="tire-value rl">31 PSI</span>
+                            <span class="tire-value rr">32 PSI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fuel & Range (Moved here) -->
+            <div class="monitor-card fuel-card">
+                <h3>Fuel & Range</h3>
+                <div class="fuel-gauge">
+                    <div class="gauge-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#1a202c" stroke-width="8" />
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#00d4ff" stroke-width="8"
+                                stroke-dasharray="201" stroke-dashoffset="40" stroke-linecap="round"
+                                transform="rotate(-90 50 50)" />
+                        </svg>
+                        <div class="gauge-text">
+                            <span class="gauge-value">80%</span>
+                            <span class="gauge-label">Fuel</span>
+                        </div>
+                    </div>
+                    <div class="range-info">
+                        <div class="range-item">
+                            <span class="range-label">Range</span>
+                            <span class="range-value">450 km</span>
+                        </div>
+                        <div class="range-item">
+                            <span class="range-label">Avg. Consumption</span>
+                            <span class="range-value">7.2 L/100km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Vehicle Health (Full Height) -->
+        <div class="monitor-col monitor-col-right">
+            <!-- Vehicle Health -->
+            <div class="monitor-card health-card">
+                <h3>Vehicle Health</h3>
+                <div class="health-list">
+                    <div class="health-item ok">
+                        <span class="health-icon">✓</span>
+                        <span>Engine</span>
+                        <span class="health-status">OK</span>
+                    </div>
+                    <div class="health-item ok">
+                        <span class="health-icon">✓</span>
+                        <span>Battery</span>
+                        <span class="health-status">OK</span>
+                    </div>
+                    <div class="health-item warning">
+                        <span class="health-icon">!</span>
+                        <span>Oil Level</span>
+                        <span class="health-status">Check Soon</span>
+                    </div>
+                    <div class="health-item ok">
+                        <span class="health-icon">✓</span>
+                        <span>Brakes</span>
+                        <span class="health-status">OK</span>
+                    </div>
+                    <!-- Added extra items to fill height -->
+                    <div class="health-item ok">
+                        <span class="health-icon">✓</span>
+                        <span>Transmission</span>
+                        <span class="health-status">OK</span>
+                    </div>
+                    <div class="health-item ok">
+                        <span class="health-icon">✓</span>
+                        <span>Coolant</span>
+                        <span class="health-status">OK</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

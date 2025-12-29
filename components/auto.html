@@ -1,0 +1,117 @@
+<div class="automated-layout-v2">
+    <!-- Center: Sensor Visualization -->
+    <div class="sensor-display-container">
+        <div class="sensor-viz-wrapper">
+            <!-- Radar Waves -->
+            <div class="radar-pulse-ring ring-1"></div>
+            <div class="radar-pulse-ring ring-2"></div>
+            <div class="radar-pulse-ring ring-3"></div>
+
+            <!-- Lane Lines -->
+            <div class="lane-line left-line"></div>
+            <div class="lane-line right-line"></div>
+
+            <!-- The Car -->
+            <div class="adas-car-model">
+                <!-- Simple SVG Car Top View -->
+                <svg viewBox="0 0 100 200" class="adas-car-svg">
+                    <defs>
+                        <linearGradient id="carBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#1e293b" />
+                            <stop offset="50%" stop-color="#334155" />
+                            <stop offset="100%" stop-color="#1e293b" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M20,40 Q20,10 50,10 Q80,10 80,40 L80,160 Q80,190 50,190 Q20,190 20,160 Z"
+                        fill="url(#carBodyGrad)" stroke="#475569" stroke-width="2" />
+                    <!-- Windshield -->
+                    <path d="M25,50 Q50,45 75,50 L70,80 Q50,75 30,80 Z" fill="#0ea5e9" opacity="0.6" />
+                    <!-- Sensor Range Halo -->
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#00d4ff" stroke-width="1" stroke-dasharray="2,4"
+                        opacity="0.5" />
+                </svg>
+            </div>
+
+            <!-- Detected Objects (Ghosts) -->
+            <div class="detected-object obj-1"></div>
+            <div class="detected-object obj-2"></div>
+        </div>
+        <div class="system-message">
+            <span class="status-dot pulsing"></span>
+            <span class="status-text">Autopilot Ready</span>
+        </div>
+    </div>
+
+    <!-- Left Control Panel -->
+    <div class="adas-panel left-panel">
+        <div class="panel-header">
+            <h3>Autopilot Mode</h3>
+        </div>
+        <div class="mode-selector">
+            <button class="mode-btn active">
+                <div class="mode-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 22h20L12 2zm0 4l6 12H6l6-12z" />
+                    </svg>
+                </div>
+                <span class="mode-name">Traffic Aware</span>
+            </button>
+            <button class="mode-btn">
+                <div class="mode-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z" />
+                    </svg>
+                </div>
+                <span class="mode-name">Autosteer</span>
+            </button>
+            <button class="mode-btn">
+                <div class="mode-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+                    </svg>
+                </div>
+                <span class="mode-name">FSD (Beta)</span>
+            </button>
+        </div>
+        <div class="feature-toggles">
+            <div class="toggle-row">
+                <span>Auto Lane Change</span>
+                <label class="toggle-switch-sm"><input type="checkbox" checked><span class="slider"></span></label>
+            </div>
+            <div class="toggle-row">
+                <span>Blind Spot Camera</span>
+                <label class="toggle-switch-sm"><input type="checkbox" checked><span class="slider"></span></label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Control Panel -->
+    <div class="adas-panel right-panel">
+        <div class="panel-header">
+            <h3>Smart Actions</h3>
+        </div>
+        <div class="action-grid">
+            <button class="action-card">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M13 3H6v18h4v-6h3c3.31 0 6-2.69 6-6s-2.69-6-6-6zm.2 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z" />
+                    </svg>
+                </div>
+                <span>Auto Park</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Sensitivity Control -->
+    <div class="adas-bottom-bar">
+        <div class="sensitivity-label">Following Distance</div>
+        <div class="sensitivity-control">
+            <span class="sens-text">Chill</span>
+            <input type="range" min="1" max="3" value="2" class="sensitivity-slider">
+            <span class="sens-text">Assertive</span>
+        </div>
+    </div>
+</div>

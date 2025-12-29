@@ -1,0 +1,287 @@
+<div class="media-screen-layout">
+    <!-- Left: Audio Sources Sidebar -->
+    <div class="media-sources-sidebar">
+        <button class="source-btn active" data-source="radio" title="FM/AM Radio">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V8c0-1.11-.89-2-2-2H8.3l8.26-3.34-.37-.92L3.24 6.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-2v-2h-2v2H4V8h16v4z" />
+            </svg>
+            <span>Radio</span>
+        </button>
+        <button class="source-btn" data-source="bluetooth" title="Bluetooth">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z" />
+            </svg>
+            <span>BT</span>
+        </button>
+        <button class="source-btn spotify" data-source="spotify" title="Spotify">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.48.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+            </svg>
+            <span>Spotify</span>
+        </button>
+        <div class="source-divider"></div>
+        <button class="source-btn phone-src" data-source="phone" title="Phone">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg>
+            <span>Phone</span>
+        </button>
+    </div>
+
+    <!-- Center: Source Content Panels (To be inserted) -->
+    <div class="media-main-content">
+        <!-- Radio Panel -->
+        <div class="source-panel active" id="panel-radio">
+            <h3>FM Radio Stations</h3>
+            <div class="channel-list">
+                <div class="channel-item active">
+                    <span class="freq">98.5</span>
+                    <span class="name">FM Music</span>
+                    <span class="genre">Pop</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">101.3</span>
+                    <span class="name">Classic FM</span>
+                    <span class="genre">Classical</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">104.7</span>
+                    <span class="name">Rock Station</span>
+                    <span class="genre">Rock</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">107.9</span>
+                    <span class="name">Jazz FM</span>
+                    <span class="genre">Jazz</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">89.3</span>
+                    <span class="name">News Radio</span>
+                    <span class="genre">News</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">95.1</span>
+                    <span class="name">Top 40 Hits</span>
+                    <span class="genre">Pop</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">92.7</span>
+                    <span class="name">Country FM</span>
+                    <span class="genre">Country</span>
+                </div>
+                <div class="channel-item">
+                    <span class="freq">88.1</span>
+                    <span class="name">EDM Radio</span>
+                    <span class="genre">Electronic</span>
+                </div>
+            </div>
+            <div class="radio-tuner">
+                <span class="tuner-min">88</span>
+                <input type="range" class="tuner-slider" min="88" max="108" value="98.5" step="0.1">
+                <span class="tuner-max">108</span>
+                <span class="tuner-freq">98.5 FM</span>
+            </div>
+        </div>
+
+        <!-- Bluetooth Panel -->
+        <div class="source-panel" id="panel-bluetooth">
+            <div class="bt-layout">
+                <div class="bt-section">
+                    <h4>Connected Devices</h4>
+                    <div class="bt-device connected">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1z" />
+                        </svg>
+                        <div class="bt-info">
+                            <span class="bt-name">iPhone 15 Pro</span>
+                            <span class="bt-type">Phone • Media Audio</span>
+                        </div>
+                        <span class="bt-status connected">Connected</span>
+                    </div>
+                    <div class="bt-device connected">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z" />
+                        </svg>
+                        <div class="bt-info">
+                            <span class="bt-name">AirPods Pro</span>
+                            <span class="bt-type">Audio</span>
+                        </div>
+                        <span class="bt-status connected">Connected</span>
+                    </div>
+                </div>
+                <div class="bt-section">
+                    <h4>Available Devices</h4>
+                    <div class="bt-device">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17 2H7c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+                        </svg>
+                        <div class="bt-info">
+                            <span class="bt-name">iPad Mini</span>
+                            <span class="bt-type">Tablet</span>
+                        </div>
+                        <button class="bt-pair-btn">Pair</button>
+                    </div>
+                    <div class="bt-device">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z" />
+                        </svg>
+                        <div class="bt-info">
+                            <span class="bt-name">MacBook Pro</span>
+                            <span class="bt-type">Computer</span>
+                        </div>
+                        <button class="bt-pair-btn">Pair</button>
+                    </div>
+                </div>
+                <button class="bt-scan-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
+                    </svg>
+                    Scan for Devices
+                </button>
+            </div>
+        </div>
+
+        <!-- Spotify Panel -->
+        <div class="source-panel" id="panel-spotify">
+            <div class="spotify-split-layout">
+                <div class="spotify-player-side">
+                    <div class="spotify-album-large">🎵</div>
+                    <h3>Blinding Lights</h3>
+                    <p class="spotify-artist">The Weeknd</p>
+                    <div class="spotify-controls">
+                        <button class="sp-ctrl">⏮</button>
+                        <button class="sp-ctrl play">▶</button>
+                        <button class="sp-ctrl">⏭</button>
+                    </div>
+                    <div class="spotify-progress">
+                        <span>1:23</span>
+                        <div class="sp-bar">
+                            <div class="sp-fill" style="width:40%"></div>
+                        </div>
+                        <span>3:20</span>
+                    </div>
+                </div>
+                <div class="spotify-playlist-side">
+                    <div class="spotify-header">
+                        <h4>Playlist: Top Hits 2024</h4>
+                        <button class="spotify-search-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                    <div class="sp-tracks">
+                        <div class="sp-track active"><span>1</span><span>Blinding Lights</span><span>The Weeknd</span>
+                        </div>
+                        <div class="sp-track"><span>2</span><span>Save Your Tears</span><span>The Weeknd</span></div>
+                        <div class="sp-track"><span>3</span><span>Starboy</span><span>The Weeknd</span></div>
+                        <div class="sp-track"><span>4</span><span>Die For You</span><span>The Weeknd</span></div>
+                        <div class="sp-track"><span>5</span><span>Take My Breath</span><span>The Weeknd</span></div>
+                        <div class="sp-track"><span>6</span><span>After Hours</span><span>The Weeknd</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phone Panel -->
+        <div class="source-panel" id="panel-phone">
+            <div class="phone-split-layout">
+                <div class="phone-calls-section">
+                    <h4>Recent Calls</h4>
+                    <div class="calls-list-full">
+                        <div class="call-row incoming">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#00ff88">
+                                <path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z" />
+                            </svg>
+                            <span class="contact">Mom</span>
+                            <span class="duration">5:32</span>
+                            <span class="time">10:30 AM</span>
+                        </div>
+                        <div class="call-row outgoing">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#00d4ff">
+                                <path d="M9 5v2h6.59L4 18.59 5.41 20 17 8.41V15h2V5z" />
+                            </svg>
+                            <span class="contact">John Smith</span>
+                            <span class="duration">2:15</span>
+                            <span class="time">Yesterday</span>
+                        </div>
+                        <div class="call-row missed">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#ff4757">
+                                <path d="M19.59 7L12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9z" />
+                            </svg>
+                            <span class="contact">Office</span>
+                            <span class="duration">--</span>
+                            <span class="time">Yesterday</span>
+                        </div>
+                        <div class="call-row incoming">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#00ff88">
+                                <path d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z" />
+                            </svg>
+                            <span class="contact">David Lee</span>
+                            <span class="duration">8:45</span>
+                            <span class="time">Mon</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phone-messages-section">
+                    <h4>Recent Messages</h4>
+                    <div class="messages-list-full">
+                        <div class="msg-row">
+                            <div class="msg-avatar">M</div>
+                            <div class="msg-content">
+                                <span class="msg-sender">Mom</span>
+                                <span class="msg-preview">Are you coming for dinner tonight?</span>
+                            </div>
+                            <span class="msg-time">10:35 AM</span>
+                        </div>
+                        <div class="msg-row">
+                            <div class="msg-avatar">J</div>
+                            <div class="msg-content">
+                                <span class="msg-sender">John Smith</span>
+                                <span class="msg-preview">Meeting moved to 3pm tomorrow</span>
+                            </div>
+                            <span class="msg-time">9:15 AM</span>
+                        </div>
+                        <div class="msg-row">
+                            <div class="msg-avatar">S</div>
+                            <div class="msg-content">
+                                <span class="msg-sender">Sarah</span>
+                                <span class="msg-preview">Thanks for the ride!</span>
+                            </div>
+                            <span class="msg-time">Yesterday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: CarPlay Launch Button (To be inserted) -->
+    <div class="media-right-panel carplay-center">
+        <div class="carplay-connect-banner">
+            <div class="device-status">
+                <span class="status-dot connected"></span>
+                <span>iPhone 15 Pro Connected</span>
+            </div>
+        </div>
+        <div class="carplay-launch-btn" onclick="launchCarPlay()">
+            <div class="carplay-icon-large">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                </svg>
+            </div>
+            <h3>Launch CarPlay</h3>
+            <p>Tap to start projection</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="dashboard">
+    <div class="vehicle-section">
+        <div class="car-visualization">
+            <div class="car-wrapper">
+                <!-- 3D Model Canvas -->
+                <div id="car-3d-container">
+                    <div class="loading-indicator" id="loading-indicator">
+                        <div class="spinner"></div>
+                        <span>Loading 3D Model...</span>
+                        <div class="progress-bar-3d">
+                            <div class="progress-fill-3d" id="load-progress"></div>
+                        </div>
+                    </div>
+                    <canvas id="car-canvas"></canvas>
+                </div>
+                <div class="car-glow"></div>
+            </div>
+        </div>
+        <div class="vehicle-stats">
+            <div class="stat-item">
+                <span class="stat-label">Range:</span>
+                <span class="stat-value cyan">450km</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Fuel:</span>
+                <span class="stat-value cyan">80%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Tire Pressure:</span>
+                <span class="stat-value green">OK</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-cards">
+        <div class="card navigation-card">
+            <div class="card-header">
+                <span class="card-label">NEXT DESTINATION:</span>
+            </div>
+            <div class="card-content">
+                <h2 class="destination-name">Home</h2>
+                <p class="destination-info">15 mins via Main St.</p>
+            </div>
+            <div class="mini-map direction-indicator">
+                <svg viewBox="0 0 24 24" class="direction-svg" fill="none" stroke="#00A3FF" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 19l6-7-6-7" />
+                    <path d="M5 12h12" />
+                </svg>
+                <span class="direction-text">Turn left 200m</span>
+            </div>
+        </div>
+
+        <div class="card climate-card">
+            <div class="card-header">
+                <span class="card-label">TEMPERATURE:</span>
+                <div class="ac-badge">A/C</div>
+            </div>
+            <div class="card-content">
+                <h2 class="climate-temp">22°C</h2>
+                <p class="climate-mode">Auto</p>
+            </div>
+        </div>
+
+        <div class="card music-card">
+            <div class="card-header">
+                <span class="card-label">NOW PLAYING:</span>
+                <div class="music-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="card-content">
+                <h2 class="track-name">Blinding Lights</h2>
+                <p class="artist-name">The Weeknd</p>
+            </div>
+        </div>
+    </div>
+</div>

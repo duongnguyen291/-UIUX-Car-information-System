@@ -1356,6 +1356,51 @@ body {
     transform: translate(-50%, -50%) scale(1.2);
 }
 
+/* Climate Mini Controls */
+.climate-mini {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    margin-left: auto;
+    /* Push to the right if needed, or just let gap handle it */
+}
+
+.climate-btn-mini,
+.fan-btn-mini {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.climate-btn-mini:hover,
+.fan-btn-mini:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+}
+
+.temp-val {
+    min-width: 50px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-cyan);
+}
+
 /* ============================================
    MONITORING SCREEN
    ============================================ */

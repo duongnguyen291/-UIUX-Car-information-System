@@ -1,0 +1,130 @@
+<div class="navigation-layout">
+    <!-- 3D Perspective Wrapper -->
+    <div class="map-perspective-wrapper">
+        <div class="map-plane">
+            <!-- Enhanced 3D Map SVG -->
+            <svg viewBox="0 0 1000 1000" class="full-map-3d" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e293b" />
+                        <stop offset="100%" style="stop-color:#0f172a" />
+                    </linearGradient>
+                    <filter id="glow-route" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Dark Background -->
+                <rect width="1000" height="1000" fill="url(#mapGradient)" />
+
+                <!-- City Grid (Perspective Lines) -->
+                <g stroke="#334155" stroke-width="2" opacity="0.3">
+                    <line x1="100" y1="0" x2="100" y2="1000" />
+                    <line x1="300" y1="0" x2="300" y2="1000" />
+                    <line x1="500" y1="0" x2="500" y2="1000" />
+                    <line x1="700" y1="0" x2="700" y2="1000" />
+                    <line x1="900" y1="0" x2="900" y2="1000" />
+                    <line x1="0" y1="200" x2="1000" y2="200" />
+                    <line x1="0" y1="400" x2="1000" y2="400" />
+                    <line x1="0" y1="600" x2="1000" y2="600" />
+                    <line x1="0" y1="800" x2="1000" y2="800" />
+                </g>
+
+                <!-- Buildings (3D Blocks Extruded) -->
+                <g fill="#1e293b" stroke="#475569" stroke-width="1">
+                    <!-- Left Side Blocks -->
+                    <path d="M100 600 L250 600 L250 750 L100 750 Z" class="building-base" />
+                    <path d="M100 600 L120 550 L270 550 L250 600" fill="#334155" class="building-roof" />
+                    <path d="M270 550 L270 700 L250 750 L250 600" fill="#2d3848" class="building-side" />
+
+                    <!-- Right Side Blocks -->
+                    <path d="M750 200 L900 200 L900 400 L750 400 Z" class="building-base" />
+                    <path d="M750 200 L770 150 L920 150 L900 200" fill="#334155" class="building-roof" />
+                    <path d="M920 150 L920 350 L900 400 L900 200" fill="#2d3848" class="building-side" />
+                </g>
+
+                <!-- Main Road Path -->
+                <path d="M500 1000 L500 600 C500 500 500 400 700 300 L900 200" stroke="#334155" stroke-width="80"
+                    fill="none" class="road-base" />
+
+                <!-- Active Route Line (Glowing Green) -->
+                <path d="M500 950 L500 600 C500 500 500 400 700 300 L900 200" stroke="#00ff88" stroke-width="20"
+                    fill="none" filter="url(#glow-route)" class="route-active" stroke-linecap="round" />
+
+                <!-- Path Arrows (Direction flow) -->
+                <path d="M500 850 L500 800" stroke="#fff" stroke-width="4" marker-end="url(#arrow)" opacity="0.5" />
+                <path d="M500 700 L500 650" stroke="#fff" stroke-width="4" marker-end="url(#arrow)" opacity="0.5" />
+            </svg>
+
+            <!-- Car Location Marker (Centered on Screen, but fixed on map plane) -->
+            <div class="car-marker-3d">
+                <div class="marker-ring"></div>
+                <div class="marker-arrow"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Overlays (Floating) -->
+    <div class="nav-overlay-container">
+        <!-- Top Left: Turn Instruction -->
+        <div class="nav-card turn-card">
+            <div class="turn-icon">
+                <svg viewBox="0 0 24 24" class="turn-svg">
+                    <path d="M12 4 L12 14 C12 16 13 17 15 17 L18 17" stroke="white" stroke-width="3" fill="none" />
+                    <path d="M15 14 L18 17 L15 20" stroke="white" stroke-width="3" fill="none" />
+                </svg>
+            </div>
+            <div class="turn-info">
+                <span class="turn-dist">300m</span>
+                <span class="turn-street">Turn right onto<br>Main St.</span>
+            </div>
+        </div>
+
+        <!-- Bottom Right: Speed Info -->
+        <div class="speed-cluster">
+            <div class="speed-limit">
+                <span>50</span>
+            </div>
+            <div class="current-speed">
+                <span class="speed-val">45</span>
+                <span class="speed-unit">km/h</span>
+            </div>
+        </div>
+
+        <!-- Bottom Left: Trip Info -->
+        <div class="nav-card trip-card">
+            <div class="trip-time">
+                <span class="eta text-green">15 min</span>
+                <span class="arrival">1:45 PM</span>
+            </div>
+            <div class="trip-dist">
+                <span>8.5 km</span>
+            </div>
+        </div>
+
+        <!-- Top Right: Nav Settings/Compass/Exit -->
+        <div class="nav-controls-right">
+            <button class="nav-circle-btn exit-btn" title="Exit Navigation">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <button class="nav-circle-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
+                </svg>
+            </button>
+            <button class="nav-circle-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
