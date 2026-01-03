@@ -1,186 +1,338 @@
-<div class="controls-layout">
-    <h2 class="screen-title">Device Controls</h2>
-    <div class="controls-main-container">
-        <!-- Full Width Controls Panel -->
-        <div class="controls-column left-panel" style="flex: 1; padding-right: 0;">
-            <!-- Climate Control -->
-            <div class="control-group climate-group">
-                <h3>TEMPERATURE</h3>
-                <div class="climate-interactive">
-                    <div class="temp-adjust">
-                        <button class="adjust-btn minus">−</button>
-                        <span class="temp-big">22°</span>
-                        <button class="adjust-btn plus">+</button>
-                    </div>
-                    <div class="climate-toggles">
-                        <button class="toggle-btn active" data-mode="auto">Auto</button>
-                        <button class="toggle-btn" data-mode="ac">A/C</button>
-                        <button class="toggle-btn" data-mode="heat">Heat</button>
-                        <button class="toggle-btn" data-mode="defrost">Defrost</button>
-                    </div>
+<div class="controls-v6-container">
 
-                    <!-- Fan & Airflow -->
-                    <div class="airflow-control-row">
-                        <div class="fan-slider-compact">
-                            <span class="icon">WIND</span>
-                            <input type="range" class="slider" min="0" max="5" value="3">
-                        </div>
-                        <div class="airflow-toggles-expanded">
-                            <button class="toggle-btn active" title="Upper Vents">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm1 10h-2v6h2v-6zm3.5-3.5c-.9 0-1.7.5-2.2 1.2l-.8 1.1-.8-1.1c-.5-.7-1.3-1.2-2.2-1.2-1.6 0-3 1.4-3 3 0 .4.1.8.3 1.2l3.4 8.5c.3.5.8.8 1.3.8s1.1-.3 1.3-.8l3.4-8.5c.2-.4.3-.8.3-1.2 0-1.6-1.4-3-3-3z" />
-                                </svg>
-                            </button>
-                            <button class="toggle-btn" title="Footwell">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M17 15l-1.5 5h-7L7 15h10zm0-2H7l-2 7 3.5 1h7L19 13zM6 10c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm-3 8h2v-4H3v4z" />
-                                </svg>
-                            </button>
-                            <button class="toggle-btn" title="Upper + Footwell">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M14 6c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-5 4v6h6v-6H9zm-2 9l1.5 4h7l1.5-4H7z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+    <!-- Left Side Bar (Quick Actions) -->
+    <div class="side-bar-column left">
+        <button class="side-glass-btn" title="Window Lock">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <span>Lock Win</span>
+        </button>
+        <button class="side-glass-btn" title="Reverse Camera" id="btn-reverse-cam">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <!-- Camera body -->
+                <rect x="2" y="7" width="20" height="14" rx="2" stroke-linejoin="round" />
+                <!-- Lens -->
+                <circle cx="12" cy="14" r="3.5" />
+                <!-- Viewfinder -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2" />
+                <!-- Reverse indicator -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14h3m-2-2l2 2-2 2" stroke-width="1.2"
+                    opacity="0.8" />
+            </svg>
+            <span>Camera</span>
+        </button>
+        <script>
+            (function () {
+                const btnAirflow = document.getElementById('btn-airflow');
+                const externalIcon = document.getElementById('airflow-external');
+                const internalIcon = document.getElementById('airflow-internal');
+                let isExternal = true;
 
-                    <!-- Air Circulation (Recirc/Fresh) -->
-                    <div class="air-circulation-row">
-                        <button class="toggle-btn active" title="Recirculation">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
-                            </svg>
-                            <span class="label">Recirculation</span>
-                        </button>
-                        <button class="toggle-btn" title="Fresh Air">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-                            </svg>
-                            <span class="label">Fresh Air</span>
-                        </button>
-                    </div>
-                </div>
+                btnAirflow.addEventListener('click', function () {
+                    isExternal = !isExternal;
+                    if (isExternal) {
+                        externalIcon.style.display = 'block';
+                        internalIcon.style.display = 'none';
+                        btnAirflow.classList.remove('active');
+                    } else {
+                        externalIcon.style.display = 'none';
+                        internalIcon.style.display = 'block';
+                        btnAirflow.classList.add('active');
+                    }
+                });
+            })();
+        </script>
+        <button class="side-glass-btn" title="Front Defrost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4 14c0 2 1.5 3 4 3h8c2.5 0 4-1 4-3M4 14l2-8h12l2 8" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 17v-4m4 4v-5m4 5v-3"
+                    stroke-dasharray="2 2" />
+            </svg>
+            <span>F-Defrost</span>
+        </button>
+        <button class="side-glass-btn" title="Rear Defrost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="4" y="6" width="16" height="12" rx="2" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 15v-6m4 6v-6m4 6v-6" />
+            </svg>
+            <span>R-Defrost</span>
+        </button>
+    </div>
+
+    <!-- Main Showcase Car -->
+    <div class="showroom-car-view">
+        <img src="public/car.svg" alt="Car Visualization" class="hero-car-img" />
+    </div>
+
+    <!-- Right Side Bar (Access & Storage) -->
+    <div class="side-bar-column right">
+        <button class="side-glass-btn" id="btn-airflow" title="Airflow">
+            <!-- External Airflow Icon (Default) -->
+            <svg id="airflow-external" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="3">
+                <!-- Car body -->
+                <path d="M 20 35 L 25 25 L 35 25 L 40 20 L 60 20 L 65 25 L 75 25 L 80 35 Z" stroke-linejoin="round" />
+                <path d="M 20 35 L 20 42 Q 20 45 23 45 L 97 45 Q 100 45 100 42 L 100 35" stroke-linejoin="round" />
+                <!-- Wheels -->
+                <circle cx="32" cy="45" r="6" fill="currentColor" />
+                <circle cx="88" cy="45" r="6" fill="currentColor" />
+                <!-- Arrow pointing into car (external air coming in) -->
+                <path d="M 5 30 L 15 30 M 12 27 L 15 30 L 12 33" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2.5" />
+            </svg>
+            <!-- Internal Circulation Icon (Hidden by default) -->
+            <svg id="airflow-internal" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="3"
+                style="display: none;">
+                <!-- Car body -->
+                <path d="M 20 35 L 25 25 L 35 25 L 40 20 L 60 20 L 65 25 L 75 25 L 80 35 Z" stroke-linejoin="round" />
+                <path d="M 20 35 L 20 42 Q 20 45 23 45 L 97 45 Q 100 45 100 42 L 100 35" stroke-linejoin="round" />
+                <!-- Wheels -->
+                <circle cx="32" cy="45" r="6" fill="currentColor" />
+                <circle cx="88" cy="45" r="6" fill="currentColor" />
+                <!-- Circular arrow inside car (internal circulation) -->
+                <path d="M 55 28 Q 65 28 65 33 Q 65 38 55 38 Q 50 38 48 35" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2.5" fill="none" />
+                <path d="M 48 35 L 45 33 L 48 31" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
+            </svg>
+            <span>Airflow</span>
+        </button>
+        <script>
+            (function () {
+                const btnAirflow = document.getElementById('btn-airflow');
+                const externalIcon = document.getElementById('airflow-external');
+                const internalIcon = document.getElementById('airflow-internal');
+                let isExternal = true;
+
+                btnAirflow.addEventListener('click', function () {
+                    isExternal = !isExternal;
+                    if (isExternal) {
+                        externalIcon.style.display = 'block';
+                        internalIcon.style.display = 'none';
+                        btnAirflow.classList.remove('active');
+                    } else {
+                        externalIcon.style.display = 'none';
+                        internalIcon.style.display = 'block';
+                        btnAirflow.classList.add('active');
+                    }
+                });
+            })();
+        </script>
+        <button class="side-glass-btn" title="Open Trunk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16" />
+            </svg>
+            <span>Trunk</span>
+        </button>
+        <button class="side-glass-btn" title="Sunroof">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="4" y="8" width="16" height="12" rx="2" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 8V4h8v4" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v4" />
+            </svg>
+            <span>Sunroof</span>
+        </button>
+        <button class="side-glass-btn" title="Mirrors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 10h16v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 10l2-6h12l2 6" />
+            </svg>
+            <span>Mirror</span>
+        </button>
+    </div>
+
+    <!-- Mini Horizontal Panels (Hidden by default) -->
+    <div class="popups-layer">
+
+        <!-- 1. Lock Mini-Dock -->
+        <div class="mini-panel-dock" id="panel-lock">
+            <div class="mini-control-group">
+                <button class="mini-icon-btn" title="Lock All"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                    </svg></button>
+                <div class="mini-divider"></div>
+                <button class="mini-btn">FL</button>
+                <button class="mini-btn">FR</button>
+                <button class="mini-btn">RL</button>
+                <button class="mini-btn">RR</button>
             </div>
-
-            <!-- Quick Access Grid (2 Columns, Doors & Lights share top row) -->
-            <div class="quick-access-grid">
-                <!-- Doors & Access (Column 1) -->
-                <div class="control-group doors-group">
-                    <h3>Doors & Locks</h3>
-                    <div class="door-visual-controller compact">
-                        <!-- Car Body -->
-                        <svg viewBox="0 0 100 160" class="control-car-svg">
-                            <path d="M20,30 Q20,10 50,10 Q80,10 80,30 L80,130 Q80,150 50,150 Q20,150 20,130 Z"
-                                fill="#1e293b" stroke="#334155" stroke-width="2" />
-                            <path d="M22,35 Q50,30 78,35 L75,55 Q50,52 25,55 Z" fill="#0ea5e9" opacity="0.3" />
-                            <path d="M25,125 Q50,122 75,125 L78,140 Q50,145 22,140 Z" fill="#0ea5e9" opacity="0.3" />
-                        </svg>
-
-                        <!-- Internal Door Buttons (Hinges) -->
-                        <button class="door-btn fl" data-door="fl">1</button>
-                        <button class="door-btn fr" data-door="fr">2</button>
-                        <button class="door-btn rl" data-door="rl">3</button>
-                        <button class="door-btn rr" data-door="rr">4</button>
-                        <button class="door-btn trunk" data-door="trunk">T</button>
-
-                        <!-- External Door Buttons (Interactions) -->
-                        <button class="door-action-btn fl-ext" data-door="fl">1</button>
-                        <button class="door-action-btn fr-ext" data-door="fr">2</button>
-                        <button class="door-action-btn rl-ext" data-door="rl">3</button>
-                        <button class="door-action-btn rr-ext" data-door="rr">4</button>
-
-                        <!-- Central Lock -->
-                        <button class="central-lock locked" title="Lock/Unlock All">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Interior Lights (Column 2) -->
-                <div class="control-group lights-interior-group">
-                    <h3>Interior Lighting</h3>
-                    <div class="lighting-zones-v2">
-                        <div class="light-zone-row" data-zone="front">
-                            <button class="zone-toggle active">ON</button>
-                            <span class="zone-label">Front</span>
-                            <input type="range" class="light-slider" min="0" max="100" value="100">
-                            <span class="light-value">100%</span>
-                        </div>
-                        <div class="light-zone-row" data-zone="middle">
-                            <button class="zone-toggle active">ON</button>
-                            <span class="zone-label">Middle</span>
-                            <input type="range" class="light-slider" min="0" max="100" value="70">
-                            <span class="light-value">70%</span>
-                        </div>
-                        <div class="light-zone-row" data-zone="rear">
-                            <button class="zone-toggle">OFF</button>
-                            <span class="zone-label">Rear</span>
-                            <input type="range" class="light-slider" min="0" max="100" value="0">
-                            <span class="light-value">0%</span>
-                        </div>
-                    </div>
-                    <div class="light-color-buttons">
-                        <button class="color-btn active" data-color="white">White</button>
-                        <button class="color-btn" data-color="yellow">Yellow</button>
-                        <button class="color-btn" data-color="warm">Warm</button>
-                    </div>
-                </div>
-
-                <!-- Massage (Span 2) -->
-                <div class="control-group massage-group" style="grid-column: span 2;">
-                    <h3>Seat Massage</h3>
-                    <div class="massage-grid-4">
-                        <div class="massage-seat-item" title="Seat 1 - Driver">
-                            <div class="seat-icon driver">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h-2c0-3.33-2.67-6-6-6s-6 2.67-6 6H3c0-4.42 3.58-8 8-8s8 3.58 8 8zm-1 0v3H6v-3c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4z" />
-                                </svg>
-                                <span class="seat-num">1</span>
-                            </div>
-                            <button class="massage-toggle active">ON</button>
-                        </div>
-                        <div class="massage-seat-item" title="Seat 2 - Passenger">
-                            <div class="seat-icon passenger">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h-2c0-3.33-2.67-6-6-6s-6 2.67-6 6H3c0-4.42 3.58-8 8-8s8 3.58 8 8zm-1 0v3H6v-3c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4z" />
-                                </svg>
-                                <span class="seat-num">2</span>
-                            </div>
-                            <button class="massage-toggle">OFF</button>
-                        </div>
-                        <div class="massage-seat-item" title="Seat 3 - Rear Left">
-                            <div class="seat-icon rear-left">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h-2c0-3.33-2.67-6-6-6s-6 2.67-6 6H3c0-4.42 3.58-8 8-8s8 3.58 8 8zm-1 0v3H6v-3c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4z" />
-                                </svg>
-                                <span class="seat-num">3</span>
-                            </div>
-                            <button class="massage-toggle">OFF</button>
-                        </div>
-                        <div class="massage-seat-item" title="Seat 4 - Rear Right">
-                            <div class="seat-icon rear-right">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M4 18v3h3v-3h10v3h3v-6H4v3zm15-8h-2c0-3.33-2.67-6-6-6s-6 2.67-6 6H3c0-4.42 3.58-8 8-8s8 3.58 8 8zm-1 0v3H6v-3c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4z" />
-                                </svg>
-                                <span class="seat-num">4</span>
-                            </div>
-                            <button class="massage-toggle">OFF</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="mini-divider"></div>
+            <div class="mini-control-group">
+                <button class="mini-icon-btn" title="Window Up"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Window Down"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg></button>
             </div>
+            <button class="close-mini-btn">×</button>
+        </div>
+
+        <!-- 2. Lights Mini-Dock -->
+        <div class="mini-panel-dock" id="panel-lights">
+            <div class="mini-control-group">
+                <button class="mini-color-dot white active" data-color="white"></button>
+                <button class="mini-color-dot yellow" data-color="yellow"></button>
+                <button class="mini-color-dot warm" data-color="warm"></button>
+            </div>
+            <div class="mini-divider"></div>
+            <div class="mini-control-group wide">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    style="margin-right:8px; opacity:0.7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                </svg>
+                <input type="range" class="mini-slider" min="0" max="100" value="80">
+            </div>
+            <button class="close-mini-btn">×</button>
+        </div>
+
+        <!-- 3. Temp Mini-Dock -->
+        <div class="mini-panel-dock" id="panel-temp">
+            <div class="mini-control-group">
+                <button class="mini-icon-btn active" title="Cool"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Warm"><svg width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Eco"><svg width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.25.25 0 00-.25.25v.375c0 .414.336.75.75.75h.375a.75.75 0 00.75-.75V11.815c0-.414-.336-.75-.75-.75h-.375a.75.75 0 00-.75.75v.375c0 .138.112.25.25.25h.125m-4.5 1.69a5.619 5.619 0 01-2.206-2.57 5.6 5.6 0 011.332-6.505 5.6 5.6 0 016.924.385l.488.423a5.613 5.613 0 011.66 6.578 5.618 5.618 0 01-3.328 3.092m-4.876-1.403l3.655-3.656" />
+                    </svg></button>
+            </div>
+            <div class="mini-divider"></div>
+            <div class="mini-control-group">
+                <button class="mini-round-btn">-</button>
+                <span class="mini-val">22°C</span>
+                <button class="mini-round-btn">+</button>
+            </div>
+            <button class="close-mini-btn">×</button>
+        </div>
+
+        <!-- 4. Drive Mode Mini-Dock -->
+        <div class="mini-panel-dock" id="panel-drive">
+            <div class="mini-control-group" style="justify-content: space-evenly; width: 100%;">
+                <button class="mini-icon-btn" title="Eco"><svg width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg></button>
+                <button class="mini-icon-btn active" title="Balance"><svg width="20" height="20" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-9H3" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Performance"><svg width="20" height="20" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Auto"><svg width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    </svg></button>
+            </div>
+            <button class="close-mini-btn">×</button>
+        </div>
+
+        <!-- 5. Fan Mini-Dock -->
+        <div class="mini-panel-dock" id="panel-fan">
+            <div class="mini-control-group">
+                <button class="mini-icon-btn active" title="Face"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-3.039 4.557 3.039-4.557zM5.337 21.672L6.696 16.6m0 0l2.51 2.225-.569-9.47-5.227 7.917 3.286-.672zM3.75 10.5h2.25m4.166-4.321L8.575 7.77" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Feet"><svg width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 4v16M8 4v16" />
+                    </svg></button>
+                <button class="mini-icon-btn" title="Windshield"><svg width="18" height="18" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 15h18M3 15l2.25-9h13.5L21 15m-18 0l1 6h16l1-6" />
+                    </svg></button>
+            </div>
+            <div class="mini-divider"></div>
+            <div class="mini-control-group wide">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    style="margin-right:8px; opacity:0.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                </svg>
+                <input type="range" class="mini-slider" min="1" max="10" value="5">
+            </div>
+            <button class="close-mini-btn">×</button>
+        </div>
+
+    </div>
+
+    <!-- Bottom Control Dock (Main Toggles) - LOWERED & SMALLER -->
+    <div class="control-dock-container interactive-dock">
+        <div class="glass-dock-slim">
+            <button class="dock-item" data-target="panel-lock">
+                <div class="icon-box-slim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="5" y="11" width="14" height="10" rx="2" ry="2" />
+                        <path d="M8 11V7a4 4 0 018 0v4" />
+                    </svg>
+                </div>
+                <span class="label">Lock</span>
+            </button>
+
+            <button class="dock-item" data-target="panel-lights">
+                <div class="icon-box-slim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                        <circle cx="12" cy="12" r="4" />
+                    </svg>
+                </div>
+                <span class="label">Lights</span>
+            </button>
+
+            <button class="dock-item" data-target="panel-temp">
+                <div class="icon-box-slim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.047 8.287 8.287 0 009 9.601a8.983 8.983 0 013.361-3.212 8.281 8.281 0 003 1.17 8.217 8.217 0 001.362-2.345z" />
+                    </svg>
+                </div>
+                <span class="label">Temp</span>
+            </button>
+
+            <button class="dock-item" data-target="panel-drive">
+                <div class="icon-box-slim">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+                    </svg>
+                </div>
+                <span class="label">Mode</span>
+            </button>
+
+            <button class="dock-item" data-target="panel-fan">
+                <div class="icon-box-slim">
+                    <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <path d="M12 2L9 9h6l-3-7z" opacity="0.9" />
+                        <path d="M22 12l-7 3v-6l7 3z" opacity="0.9" />
+                        <path d="M12 22l3-7H9l3 7z" opacity="0.9" />
+                        <path d="M2 12l7-3v6l-7-3z" opacity="0.9" />
+                        <circle cx="12" cy="12" r="2.5" />
+                    </svg>
+                </div>
+                <span class="label">Fan</span>
+            </button>
         </div>
     </div>
 </div>

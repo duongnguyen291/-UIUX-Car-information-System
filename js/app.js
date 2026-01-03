@@ -716,3 +716,139 @@ function init3DModel() {
         }
     });
 }
+
+
+// ===================================
+// CONTROLS V8 INTERACTION LOGIC (MINI-DOCKS)
+// ===================================
+document.addEventListener('click', function (e) {
+    // Dock Item Click
+    if (e.target.closest('.dock-item')) {
+        const btn = e.target.closest('.dock-item');
+        const targetId = btn.dataset.target;
+
+        if (targetId) {
+            // Toggle logic: If already active, close it.
+            if (btn.classList.contains('active')) {
+                document.querySelectorAll('.mini-panel-dock').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active'));
+                return;
+            }
+
+            // Close all others
+            document.querySelectorAll('.mini-panel-dock').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active'));
+
+            // Open target
+            const panel = document.getElementById(targetId);
+            if (panel) {
+                panel.classList.add('active');
+                btn.classList.add('active');
+            }
+        }
+    }
+
+    // Close Mini Panel Button
+    if (e.target.closest('.close-mini-btn')) {
+        const panel = e.target.closest('.mini-panel-dock');
+        if (panel) {
+            panel.classList.remove('active');
+            // Deactivate dock button
+            document.querySelectorAll('.dock-item').forEach(b => b.classList.remove('active'));
+        }
+    }
+
+    // Interactive Control Logic (Detail Panels)
+
+    // 1. Color Picker
+    if (e.target.closest('.mini-color-dot')) {
+        const btn = e.target.closest('.mini-color-dot');
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.mini-color-dot').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        // Add actual lighting change logic here if needed
+    }
+
+    // 2. Temp Modes / Drive Modes / General Buttons
+    if (e.target.closest('.mini-btn')) {
+        const btn = e.target.closest('.mini-btn');
+        // Only toggle for mode groups, not simple action buttons if they exist
+        const parent = btn.parentElement;
+        if (parent) {
+            parent.querySelectorAll('.mini-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    }
+
+    // Sidebar button toggle (active state)
+    const sidebarBtns = document.querySelectorAll('.side-glass-btn');
+    sidebarBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Special handling for Airflow button - toggle between two car icons
+            if (this.title === 'Airflow') {
+                const svg = this.querySelector('svg');
+                const currentPaths = svg.innerHTML;
+
+                // Check which state we're in and toggle
+                if (currentPaths.includes('M3.75 6.75h16.5')) {
+                    // Currently showing fresh air (arrows), switch to recirculation (car with circular arrow)
+                    svg.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l2-2 2 2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 12c0 4.4 3.6 8 8 8s8-3.6 8-8" opacity="0.5"/>
+                        <circle cx="12" cy="14" r="2" fill="currentColor" opacity="0.8"/>
+                    `;
+                } else {
+                    // Currently showing recirculation, switch to fresh air (arrows)
+                    svg.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l3 4-3 4" opacity="0.7"/>
+                    `;
+                }
+            }
+
+            this.classList.toggle('active');
+        });
+    });
+
+    // Reverse Camera functionality - using event delegation for dynamically loaded content
+    document.addEventListener('click', function (e) {
+        // Open reverse camera
+        if (e.target.closest('#btn-reverse-cam')) {
+            const reverseCamOverlay = document.getElementById('reverse-camera-overlay');
+            if (reverseCamOverlay) {
+                reverseCamOverlay.style.display = 'block';
+                setTimeout(() => {
+                    reverseCamOverlay.style.opacity = '1';
+                }, 10);
+            }
+        }
+
+        // Close reverse camera
+        if (e.target.closest('#close-reverse-cam')) {
+            const reverseCamOverlay = document.getElementById('reverse-camera-overlay');
+            if (reverseCamOverlay) {
+                reverseCamOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    reverseCamOverlay.style.display = 'none';
+                }, 300);
+            }
+        }
+    });
+
+    // Hover effect for close button
+    document.addEventListener('mouseenter', function (e) {
+        if (e.target.matches('#close-reverse-cam')) {
+            e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+            e.target.style.transform = 'scale(1.1)';
+        }
+    }, true);
+
+    document.addEventListener('mouseleave', function (e) {
+        if (e.target.matches('#close-reverse-cam')) {
+            e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+            e.target.style.transform = 'scale(1)';
+        }
+    }, true);
+});
+

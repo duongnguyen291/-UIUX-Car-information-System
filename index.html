@@ -170,6 +170,17 @@
         </footer>
         <!-- Container for CarPlay Overlays -->
         <div id="carplay-container"></div>
+
+        <!-- Reverse Camera Overlay (within infotainment screen) -->
+        <div id="reverse-camera-overlay"
+            style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; opacity: 0; transition: opacity 0.3s ease;">
+            <img src="public/camlui.jpeg" alt="Reverse Camera View"
+                style="width: 100%; height: 100%; object-fit: contain;">
+            <button id="close-reverse-cam"
+                style="position: absolute; top: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); color: white; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                ×
+            </button>
+        </div>
     </div> <!-- Closing infotainment-screen -->
 
     <!-- Main App Script -->
