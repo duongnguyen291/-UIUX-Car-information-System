@@ -6,21 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Side Control Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- SVG Icons from Heroicons (MIT) -->
     <style>
         :root {
-            --panel-width: 420px;
+            --panel-width: 120px;
+            /* Slimmer panel */
+            --panel-height: 90vh;
             --primary-bg: #0f172a;
-            /* Slate 900 */
-            --panel-bg: rgba(15, 23, 42, 0.9);
-            /* Glassy Slate */
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --panel-bg: rgba(15, 23, 42, 0.96);
             --accent: #06b6d4;
-            /* Cyan 500 */
-            --accent-glow: rgba(6, 182, 212, 0.5);
+            --accent-dim: rgba(6, 182, 212, 0.2);
             --text-main: #f1f5f9;
             --text-sub: #94a3b8;
             --border-light: rgba(255, 255, 255, 0.08);
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
         body {
@@ -33,349 +32,349 @@
             overflow: hidden;
             justify-content: center;
             align-items: center;
-            /* In a real car UI, this might be right-aligned or positioned absolute */
         }
 
         * {
             box-sizing: border-box;
             user-select: none;
-            /* Prevent text selection */
         }
 
+        /* Icon-centric Sidebar Layout */
         .panel-container {
-            width: var(--panel-width);
+            width: 380px;
             height: 96vh;
             background: var(--panel-bg);
             backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border-radius: 40px;
+            border-radius: 44px;
             border: 1px solid var(--border-light);
-            box-shadow: 0 0 80px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
-            padding: 32px;
-            position: relative;
+            padding: 24px;
+            gap: 20px;
             overflow-y: auto;
+            align-items: stretch;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
-        /* Hiding scrollbar */
         .panel-container::-webkit-scrollbar {
             display: none;
         }
 
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-sub);
-            margin-bottom: 20px;
+        /* Generic Card Style */
+        .control-row {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-height: 80px;
+            transition: 0.2s;
+        }
+
+        .control-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .main-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .main-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .control-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Sliders */
+        .slider-group {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 700;
-            opacity: 0.8;
+            width: 100%;
         }
 
-        .section-title svg {
-            color: var(--accent);
-            filter: drop-shadow(0 0 5px var(--accent-glow));
+        .mini-icon {
+            width: 14px;
+            height: 14px;
+            color: var(--text-sub);
+            opacity: 0.7;
         }
 
-        .card {
-            background: linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border-radius: 24px;
-            padding: 28px;
-            border: 1px solid var(--border-light);
-            margin-bottom: 24px;
+        .slider-track-container {
+            flex: 1;
             position: relative;
-        }
-
-        /* ====================
-           PREMIUM SLIDER
-           ==================== */
-        .slider-wrapper {
-            position: relative;
-            height: 48px;
-            /* Taller touch target */
+            height: 32px;
             display: flex;
             align-items: center;
         }
 
-        .slider-wrapper input[type=range] {
+        input[type=range] {
             -webkit-appearance: none;
             width: 100%;
-            background: transparent;
-            z-index: 10;
-            position: relative;
-            cursor: pointer;
             height: 100%;
-            margin: 0;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
         }
 
-        .slider-wrapper input[type=range]:focus {
+        input[type=range]:focus {
             outline: none;
         }
 
-        /* Track Container */
-        .slider-track {
+        .track-bg {
             position: absolute;
             left: 0;
             right: 0;
-            height: 8px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            pointer-events: none;
+            border-radius: 2px;
         }
 
-        /* Progress Fill */
-        .slider-fill {
+        .track-fill {
             position: absolute;
-            top: 0;
             left: 0;
-            height: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 4px;
             background: var(--accent);
+            border-radius: 2px;
             width: 50%;
-            box-shadow: 0 0 15px var(--accent-glow);
-            transition: width 0.05s linear;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--accent-dim);
         }
 
-        /* Thumb */
-        .slider-wrapper input[type=range]::-webkit-slider-thumb {
+        input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 28px;
-            width: 28px;
-            border-radius: 50%;
+            width: 18px;
+            height: 18px;
             background: #fff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            margin-top: -10px;
-            /* Center vert relative to what? */
-            /* Actually with flex centering, we rely on browser default alignment or tricky margin */
-            /* Standard hack for webkit track: */
-            transform: translateY(-0px);
-            border: 4px solid var(--primary-bg);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            margin-top: -1px;
+            /* Align hack */
         }
 
-        /* Fix thumb vertical alignment */
-        .slider-wrapper input[type=range]::-webkit-slider-runnable-track {
-            background: transparent;
-            height: 8px;
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 100%;
         }
 
-        .slider-wrapper input[type=range]::-webkit-slider-thumb {
-            margin-top: -10px;
-            /* (28 - 8) / 2 * -1 = -10 */
-        }
-
-        .slider-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            margin-top: 5px;
-            padding: 0 5px;
-            font-weight: 500;
-        }
-
-        .slider-labels span.active-val {
-            color: var(--text-main);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        /* ====================
-           WINDOW BUTTONS
-           ==================== */
+        /* Window Buttons */
         .win-btn-group {
             display: flex;
-            gap: 16px;
+            gap: 8px;
+            width: 100%;
         }
 
         .win-btn {
             flex: 1;
-            height: 72px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-light);
-            border-radius: 18px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .win-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .win-btn:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .win-btn:hover::before {
-            opacity: 1;
-        }
-
-        .win-btn:active {
-            transform: translateY(1px);
-            background: rgba(6, 182, 212, 0.1);
-            border-color: var(--accent);
-        }
-
-        .win-btn svg {
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
-        .win-btn span {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-sub);
-        }
-
-        .win-btn:active span,
-        .win-btn:active svg {
-            color: var(--accent);
-        }
-
-        /* ====================
-           MASSAGE CONTROLS
-           ==================== */
-        .massage-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .pwr-switch {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 6px 6px 6px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-        }
-
-        .pwr-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-sub);
-        }
-
-        .toggle-track {
-            width: 44px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .toggle-thumb {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            transition: 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        input:checked+.toggle-track {
-            background: var(--accent);
-        }
-
-        input:checked+.toggle-track .toggle-thumb {
-            transform: translateX(20px);
-        }
-
-        input:checked~.pwr-label {
-            color: var(--accent);
-        }
-
-        .massage-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 12px;
-            opacity: 1;
-            transition: 0.3s;
-        }
-
-        .massage-grid.disabled {
-            opacity: 0.3;
-            pointer-events: none;
-            filter: grayscale(1);
-        }
-
-        .mode-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .mode-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .mode-btn.active {
-            background: rgba(6, 182, 212, 0.15);
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
-        }
-
-        .mode-btn svg {
-            width: 32px;
-            height: 32px;
             color: var(--text-sub);
             transition: 0.2s;
         }
 
-        .mode-btn.active svg {
+        .win-btn:active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .win-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Massage Grid */
+        .massage-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 16px 20px;
+        }
+
+        .massage-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .power-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .power-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .massage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            opacity: 0.4;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .massage-grid.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mode-item {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mode-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .mode-item.selected {
+            background: rgba(6, 182, 212, 0.15);
             color: var(--accent);
-            filter: drop-shadow(0 0 5px var(--accent-glow));
+            border: 1px solid var(--accent);
         }
 
-        .mode-label {
-            font-size: 0.8rem;
-            font-weight: 500;
+        .mode-item svg {
+            width: 20px;
+            height: 20px;
         }
 
-        /* ====================
-           SEAT RECLINE
-           ==================== */
+        /* RECLINE */
+        .recline-row {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            padding: 0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            /* min-height auto */
+        }
+
         .recline-viz {
-            height: 140px;
+            height: 100px;
+            /* specific height */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
+        }
+
+        .recline-controls {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* NEW SECTIONS TO FILL SPACE */
+
+        /* Ambient Light */
+        .ambient-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .color-dot {
+            flex: 1;
+            /* Fill width */
+            height: 40px;
+            border-radius: 12px;
+            /* Rounded rectangle */
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .color-dot:hover {
+            transform: translateY(-2px);
+        }
+
+        .color-dot.active {
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Door Lock */
+        .lock-container {
+            margin-top: auto;
+            /* Push to bottom if space allows, or just fill */
+            background: rgba(239, 68, 68, 0.1);
+            /* Red tint default or neutral */
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .lock-container.locked {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .lock-container.unlocked {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .lock-icon-large {
+            width: 24px;
+            height: 24px;
         }
     </style>
 </head>
@@ -384,214 +383,239 @@
 
     <div class="panel-container">
 
-        <!-- WINDOW TINT -->
-        <div class="card">
-            <div class="section-title">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <!-- Window Tint -->
+        <div class="control-row">
+            <div class="main-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
-                    </path>
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
-                Window Tint
             </div>
-
-            <div class="slider-wrapper">
-                <div class="slider-track">
-                    <div class="slider-fill" id="tint-fill" style="width: 50%"></div>
-                </div>
-                <input type="range" min="0" max="100" value="50" id="tint-slider">
-            </div>
-
-            <div class="slider-labels">
-                <span>Clear</span>
-                <span class="active-val" id="tint-val">50%</span>
-                <span>Dark</span>
-            </div>
-        </div>
-
-        <!-- WINDOW POSITION -->
-        <div class="card">
-            <div class="section-title">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                </svg>
-                Window Control
-            </div>
-            <div class="win-btn-group">
-                <div class="win-btn" id="btn-up">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+            <div class="control-content">
+                <div class="slider-group">
+                    <svg class="mini-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
-                    <span>UP</span>
-                </div>
-                <div class="win-btn" id="btn-down">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                    <span>DOWN</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- MASSAGE -->
-        <div class="card">
-            <div class="massage-header">
-                <div class="section-title" style="margin:0">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    Massage
-                </div>
-                <label class="pwr-switch">
-                    <span class="pwr-label" id="pwr-text">OFF</span>
-                    <input type="checkbox" id="msg-power">
-                    <div class="toggle-track">
-                        <div class="toggle-thumb"></div>
+                    <div class="slider-track-container">
+                        <div class="track-bg"></div>
+                        <div class="track-fill" id="tint-fill" style="width: 50%;"></div>
+                        <input type="range" min="0" max="100" value="50" oninput="updateTint(this.value)">
                     </div>
-                </label>
+                    <svg class="mini-icon" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
+                    </svg>
+                </div>
             </div>
+        </div>
 
-            <div class="massage-grid disabled" id="msg-grid">
-                <div class="mode-btn active" onclick="setMode(this)">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <!-- Window Control -->
+        <div class="control-row">
+            <div class="main-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+            </div>
+            <div class="control-content">
+                <div class="win-btn-group">
+                    <div class="win-btn">
+                        <svg fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                        </svg>
+                    </div>
+                    <div class="win-btn">
+                        <svg fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Massage -->
+        <div class="massage-container">
+            <div class="massage-top">
+                <div class="main-icon"
+                    style="background:transparent; padding:0; justify-content:flex-start; width:auto;">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.536 15.536a5 5 0 00-7.072 0M12 6.5a14.88 14.88 0 00-6.105 1.295A2.32 2.32 0 005.8 8c.254.496.678.89 1.185 1.107l.084.036c.642.274 1.346.423 2.052.423 1.94 0 3.73-.594 5.234-1.615l.024-.016.024.016c1.503 1.02 3.294 1.615 5.234 1.615.706 0 1.41-.149 2.052-.423l.084-.036c.507-.217.931-.611 1.185-1.107a2.32 2.32 0 00-.095-.205A14.88 14.88 0 0012 6.5z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="power-btn" id="msg-pwr" onclick="toggleMassage()">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="massage-grid" id="msg-grid">
+                <div class="mode-item selected" onclick="setMsgMode(this)">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
                         </path>
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
-                    <span class="mode-label">Wave</span>
                 </div>
-                <div class="mode-btn" onclick="setMode(this)">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <div class="mode-item" onclick="setMsgMode(this)">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <span class="mode-label">Pulse</span>
                 </div>
-                <div class="mode-btn" onclick="setMode(this)">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <div class="mode-item" onclick="setMsgMode(this)">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
                         </path>
                     </svg>
-                    <span class="mode-label">Knead</span>
                 </div>
-                <div class="mode-btn" onclick="setMode(this)">
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <div class="mode-item" onclick="setMsgMode(this)">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                        </path>
+                            d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
                     </svg>
-                    <span class="mode-label">SOS</span>
                 </div>
             </div>
         </div>
 
-        <!-- RECLINE -->
-        <div class="card" style="margin-bottom: 0;">
-            <div class="section-title">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z">
-                    </path>
-                </svg>
-                Seat Recline
-            </div>
-
+        <!-- Recline -->
+        <div class="control-row recline-row">
             <div class="recline-viz">
-                <svg width="120" height="120" viewBox="0 0 100 100">
-                    <!-- Seat Base -->
+                <svg width="80" height="80" viewBox="0 0 100 100">
                     <path d="M25 75 H75" stroke="#334155" stroke-width="6" stroke-linecap="round" />
                     <path d="M50 75 V85 M35 85 H65" stroke="#334155" stroke-width="4" stroke-linecap="round" />
-
-                    <!-- Seat Bottom (Lit) -->
                     <path d="M25 70 H70" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" />
-
-                    <!-- Seat Back (Rotating) -->
                     <g id="seat-back-viz"
                         style="transform-box: fill-box; transform-origin: bottom left; transition: transform 0.1s;">
                         <path d="M25 70 L25 25" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" />
-                        <!-- Headrest -->
                         <path d="M25 20 L25 12" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" />
                     </g>
                 </svg>
             </div>
-
-            <div class="slider-wrapper">
-                <div class="slider-track">
-                    <div class="slider-fill" id="recline-fill" style="width: 0%"></div>
+            <div class="recline-controls">
+                <div class="slider-group">
+                    <svg class="mini-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M20 12h-7V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14a1 1 0 001 1h14a1 1 0 001-1v-6a1 1 0 00-1-1z" />
+                    </svg>
+                    <div class="slider-track-container">
+                        <div class="track-bg"></div>
+                        <div class="track-fill" id="recline-fill" style="width: 0%;"></div>
+                        <input type="range" class="rec-slider" min="0" max="60" value="0"
+                            oninput="updateRecline(this.value)">
+                    </div>
                 </div>
-                <input type="range" min="0" max="60" value="0" id="recline-slider">
             </div>
+        </div>
 
-            <div class="slider-labels">
-                <span>Upwright</span>
-                <span class="active-val" id="recline-val">100°</span>
-                <span>Max</span>
+        <!-- NEW: Ambient Light -->
+        <div class="control-row">
+            <div class="main-icon">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                    </path>
+                </svg>
             </div>
+            <div class="control-content">
+                <!-- Color Dots -->
+                <div class="color-palette">
+                    <div class="color-dot active" style="background: #ffffff;" title="White" onclick="setColor(this)">
+                    </div>
+                    <div class="color-dot" style="background: #fbbf24;" title="Yellow" onclick="setColor(this)"></div>
+                    <!-- Amber-400 -->
+                    <div class="color-dot" style="background: #fef3c7;" title="Warm White" onclick="setColor(this)">
+                    </div> <!-- Amber-100 -->
+                </div>
+                <!-- Brightness Slider -->
+                <div class="slider-group" style="margin-top: 5px;">
+                    <svg class="mini-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                            opacity="0.5" />
+                    </svg>
+                    <div class="slider-track-container" style="height: 16px;">
+                        <div class="track-bg"></div>
+                        <div class="track-fill" id="amb-fill" style="width: 80%;"></div>
+                        <input type="range" min="0" max="100" value="80"
+                            oninput="document.getElementById('amb-fill').style.width = this.value + '%'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Door Lock -->
+        <div class="control-row lock-container locked" id="lock-btn" onclick="toggleLock()">
+            <svg class="lock-icon-large" id="lock-icon" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                </path>
+            </svg>
         </div>
 
     </div>
 
     <script>
-        // --- Tint Slider ---
-        const tintSlider = document.getElementById('tint-slider');
-        const tintFill = document.getElementById('tint-fill');
-        const tintVal = document.getElementById('tint-val');
+        function updateTint(val) {
+            document.getElementById('tint-fill').style.width = val + '%';
+        }
 
-        tintSlider.addEventListener('input', (e) => {
-            const val = e.target.value;
-            tintFill.style.width = val + '%';
-            tintVal.textContent = val + '%';
-        });
-
-        // --- Recline Slider ---
-        const recSlider = document.getElementById('recline-slider');
-        const recFill = document.getElementById('recline-fill');
-        const recVal = document.getElementById('recline-val');
-        const seatBack = document.getElementById('seat-back-viz');
-
-        recSlider.addEventListener('input', (e) => {
-            const val = parseInt(e.target.value);
+        function updateRecline(val) {
             const pct = (val / 60) * 100;
-            recFill.style.width = pct + '%';
-            recVal.textContent = (100 + val) + '°';
+            document.getElementById('recline-fill').style.width = pct + '%';
+            document.getElementById('seat-back-viz').style.transform = `rotate(-${val * 0.75}deg)`;
+        }
 
-            // Visual rotation: 0 to -45deg
-            seatBack.style.transform = `rotate(-${val * 0.75}deg)`;
-        });
+        function toggleMassage() {
+            const btn = document.getElementById('msg-pwr');
+            const grid = document.getElementById('msg-grid');
+            btn.classList.toggle('active');
+            grid.classList.toggle('active');
+        }
 
-        // --- Massage Power ---
-        const pwr = document.getElementById('msg-power');
-        const grid = document.getElementById('msg-grid');
-        const pwrTx = document.getElementById('pwr-text');
+        function setMsgMode(el) {
+            if (!document.getElementById('msg-grid').classList.contains('active')) return;
+            const siblings = el.parentElement.children;
+            for (let sib of siblings) sib.classList.remove('selected');
+            el.classList.add('selected');
+        }
 
-        pwr.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                grid.classList.remove('disabled');
-                pwrTx.innerText = 'ON';
-                pwrTx.style.color = 'var(--accent)';
-            } else {
-                grid.classList.add('disabled');
-                pwrTx.innerText = 'OFF';
-                pwrTx.style.color = 'var(--text-sub)';
-            }
-        });
-
-        // --- Mode Select ---
-        window.setMode = function (el) {
-            if (grid.classList.contains('disabled')) return;
-            // Clear siblings
-            const all = el.parentElement.children;
-            for (let child of all) child.classList.remove('active');
+        function setColor(el) {
+            const siblings = el.parentElement.children;
+            for (let sib of siblings) sib.classList.remove('active');
             el.classList.add('active');
-        };
 
-        // Initialize state
-        tintSlider.dispatchEvent(new Event('input'));
-        recSlider.dispatchEvent(new Event('input'));
+            // Set accent color?
+            // document.documentElement.style.setProperty('--accent', el.style.background);
+            // This is cool but might break text contrast if white is chosen, let's keep it simple visual only
+        }
+
+        function toggleLock() {
+            const btn = document.getElementById('lock-btn');
+            const icon = document.getElementById('lock-icon');
+
+            if (btn.classList.contains('locked')) {
+                // Unlock
+                btn.classList.remove('locked');
+                btn.classList.add('unlocked');
+                // Unlock icon
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>';
+            } else {
+                // Lock
+                btn.classList.remove('unlocked');
+                btn.classList.add('locked');
+                // Lock icon
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>';
+            }
+        }
     </script>
 </body>
 
