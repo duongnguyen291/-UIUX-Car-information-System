@@ -1286,10 +1286,11 @@ body {
     padding: var(--spacing-md) var(--spacing-lg);
     /* Larger touch target */
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 1rem;
     /* Larger text */
     cursor: pointer;
     transition: all var(--transition-normal);
+    margin-left: 10px;
 }
 
 .action-btn:hover {
@@ -1366,6 +1367,7 @@ body {
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
     margin-left: auto;
+    margin-right: 10px;
     /* Push to the right if needed, or just let gap handle it */
 }
 
@@ -5614,8 +5616,8 @@ body {
 }
 
 .side-glass-btn {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: rgba(15, 23, 42, 0.4);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -5651,7 +5653,7 @@ body {
 }
 
 .side-glass-btn span {
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.5px;
 }
